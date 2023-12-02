@@ -9,5 +9,6 @@
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
-  "eslint.validate": ["svelte"]
+  "eslint.validate": ["svelte"],
+  "editor.tabSize": 2
 }
