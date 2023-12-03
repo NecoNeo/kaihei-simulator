@@ -1,6 +1,13 @@
 import { type Subject, BehaviorSubject } from 'rxjs';
 import { sleep } from '../../utils/common';
 
+/** 执行场景节点定义 */
+interface SceneNode {
+  name: string;
+}
+
+const mockSceneNodeTree: SceneNode[] = [];
+
 /**
  * 时间流执行控制定义
  * - 模拟事件流执行过程
@@ -22,6 +29,12 @@ export class FlowExecutor {
     if (!changeEvt) return;
     changeEvt.next('开始事件流');
     await sleep(1000);
+
+    const sceneNodeRef = mockSceneNodeTree[0];
+
+    while (sceneNodeRef) {
+      console.log(sceneNodeRef);
+    }
 
     await sleep(1000);
     changeEvt.next('测试终止');
