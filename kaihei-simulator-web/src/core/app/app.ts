@@ -5,6 +5,8 @@ export class App {
 
   startSimulation(type?: string) {
     console.log('simulation type', type);
-    return new Simulation();
+    const sim = new Simulation();
+    sim.start();
+    return sim;
   }
 }
