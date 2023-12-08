@@ -12,6 +12,7 @@
     });
   }
   function endSim() {
+    // TODO sim termination
     sim = null;
     testDesc = '';
   }
