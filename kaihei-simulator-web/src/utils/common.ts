@@ -9,3 +9,11 @@ export async function sleep(ms: number) {
     }, ms);
   });
 }
+
+/**
+ * 生成唯一ID
+ */
+export function genUUID(): string {
+  // TODO 先简单写个临时算法
+  return `${new Date().valueOf()}-${Math.random()}`;
+}

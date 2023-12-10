@@ -4,9 +4,11 @@ import { sleep } from '../../utils/common';
 /** 执行场景节点定义 */
 interface SceneNode {
   name: string;
+  children: SceneNode[];
+  [key: string]: unknown;
 }
 
-const mockSceneNodeTree: SceneNode[] = [];
+// const mockSceneNodeTree: SceneNode[] = [];
 
 /**
  * 时间流执行控制定义
@@ -30,11 +32,34 @@ export class FlowExecutor {
     changeEvt.next('开始事件流');
     await sleep(1000);
 
-    const sceneNodeRef = mockSceneNodeTree[0];
+    // const sceneNodeRef = mockSceneNodeTree[0];
 
-    while (sceneNodeRef) {
-      console.log(sceneNodeRef);
-    }
+    // while (sceneNodeRef) {
+    //   console.log(sceneNodeRef);
+    // }
+
+    const mock: SceneNode = {
+      name: 'root',
+      children: []
+    };
+
+    await sleep(1000);
+
+    mock.children.push({
+      name: 's1',
+      children: []
+    });
+    mock.children.push({
+      name: 's2',
+      children: []
+    });
+
+    await sleep(1000);
+
+    mock.children[1].children.push({
+      name: 's3',
+      children: []
+    });
 
     await sleep(1000);
     changeEvt.next('测试终止');
