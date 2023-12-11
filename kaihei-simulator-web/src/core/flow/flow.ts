@@ -1,12 +1,14 @@
 import { type Subject, BehaviorSubject } from 'rxjs';
 import { sleep } from '../../utils/common';
+import type { Scene } from '../scenes/base';
+import { DemoScene } from '../scenes/demo';
 
-/** 执行场景节点定义 */
-interface SceneNode {
-  name: string;
-  children: SceneNode[];
-  [key: string]: unknown;
-}
+// /** 执行场景节点定义 */
+// interface SceneNode {
+//   name: string;
+//   children: SceneNode[];
+//   [key: string]: unknown;
+// }
 
 // const mockSceneNodeTree: SceneNode[] = [];
 
@@ -17,6 +19,7 @@ interface SceneNode {
  */
 export class FlowExecutor {
   changeEvt: Subject<string> | null = new BehaviorSubject<string>('');
+  cacheScene?: Scene;
 
   constructor() {}
 
@@ -38,28 +41,17 @@ export class FlowExecutor {
     //   console.log(sceneNodeRef);
     // }
 
-    const mock: SceneNode = {
-      name: 'root',
-      children: []
-    };
+    // const mock: SceneNode = {
+    //   name: 'root',
+    //   children: []
+    // };
 
     await sleep(1000);
 
-    mock.children.push({
-      name: 's1',
-      children: []
-    });
-    mock.children.push({
-      name: 's2',
-      children: []
-    });
-
-    await sleep(1000);
-
-    mock.children[1].children.push({
-      name: 's3',
-      children: []
-    });
+    const rootScene = new DemoScene();
+    this.cacheScene = rootScene;
+    changeEvt.next('创建场景');
+    await rootScene.play();
 
     await sleep(1000);
     changeEvt.next('测试终止');
