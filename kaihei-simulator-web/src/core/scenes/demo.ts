@@ -1,8 +1,9 @@
 import { sleep } from '../../utils/common';
+import { Component } from '../components/component';
 import { Scene } from './base';
 
 export class DemoScene extends Scene {
-  value = 0;
+  values = new Component({ value: 0 });
 
   constructor() {
     super();
@@ -13,14 +14,16 @@ export class DemoScene extends Scene {
     console.log(`play scene:<${this.name}>`);
     for (let i = 0; i < 10; i++) {
       await sleep(100);
-      this.value++;
+      const prev = this.values.getValues().value;
+      this.values.setValues({ value: prev + 1 });
     }
     const s1 = this.createChildScene('DemoSceneNested');
     await s1.play();
 
     for (let i = 0; i < 10; i++) {
       await sleep(100);
-      this.value++;
+      const prev = this.values.getValues().value;
+      this.values.setValues({ value: prev + 1 });
     }
 
     const s2 = this.createChildScene('DemoSceneNested');
@@ -31,7 +34,7 @@ export class DemoScene extends Scene {
 }
 
 export class DemoSceneNested extends Scene {
-  value = 0;
+  values = new Component({ value: 0 });
 
   constructor() {
     super();
@@ -42,7 +45,8 @@ export class DemoSceneNested extends Scene {
     console.log(`play scene:<${this.name}>`);
     for (let i = 0; i < 10; i++) {
       await sleep(100);
-      this.value++;
+      const prev = this.values.getValues().value;
+      this.values.setValues({ value: prev + 1 });
     }
   }
 }
